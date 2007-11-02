@@ -1,0 +1,11 @@
+HKCR
+{
+	NoRemove AppID
+	{
+		{E90D9404-F6D6-4AA1-8392-EBA95FEC3CB9} = s 'FreeSSHDService'
+		'FreeSSHDService.EXE'
+		{
+			val AppID = s {E90D9404-F6D6-4AA1-8392-EBA95FEC3CB9}
+		}
+	}
+}

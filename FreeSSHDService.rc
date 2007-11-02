@@ -1,0 +1,665 @@
+//Microsoft Developer Studio generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "winres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// Croatian resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_HRV)
+#ifdef _WIN32
+LANGUAGE LANG_CROATIAN, SUBLANG_DEFAULT
+#pragma code_page(1250)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON    DISCARDABLE     "ico00001.ico"
+IDI_USER                ICON    DISCARDABLE     "images\\user.ico"
+IDI_BAD                 ICON    DISCARDABLE     "Images\\bad.ico"
+IDI_OK                  ICON    DISCARDABLE     "Images\\ok.ico"
+IDI_PAGE_TELNET         ICON    DISCARDABLE     "Images\\settings_telnet.ico"
+IDI_PAGE_SSH            ICON    DISCARDABLE     "Images\\settings_ssh.ico"
+IDI_PAGE_HOSTRESTRICTIONS ICON    DISCARDABLE     "Images\\host_restrictions.ico"
+IDI_PAGE_LOGGING        ICON    DISCARDABLE     "Images\\log.ico"
+IDI_PAGE_USERS          ICON    DISCARDABLE     "Images\\user_restrictions.ico"
+IDI_PAGE_CRYPTO         ICON    DISCARDABLE     "Images\\ciphers.ico"
+IDI_PAGE_SFTP           ICON    DISCARDABLE     "images\\icon1.ico"
+IDI_PAGE_TUNNELING      ICON    DISCARDABLE     "images\\ico00001.ico"
+IDI_PAGE_AUTH           ICON    DISCARDABLE     "images\\ico00002.ico"
+IDI_NO                  ICON    DISCARDABLE     "images\\no.ico"
+IDI_YES                 ICON    DISCARDABLE     "images\\yes.ico"
+IDI_PAGE_UPDATE         ICON    DISCARDABLE     "images\\update.ico"
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#include ""winres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "1 TYPELIB ""FreeSSHDService.tlb""\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+#ifndef _MAC
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,2,0,6
+ PRODUCTVERSION 1,2,0,6
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904b0"
+        BEGIN
+            VALUE "Comments", "\0"
+            VALUE "CompanyName", "\0"
+            VALUE "FileDescription", "FreeSSHDService Module\0"
+            VALUE "FileVersion", "1, 2, 0, 6\0"
+            VALUE "InternalName", "FreeSSHDService\0"
+            VALUE "LegalCopyright", "Copyright 2007\0"
+            VALUE "LegalTrademarks", "\0"
+            VALUE "OLESelfRegister", "\0"
+            VALUE "OriginalFilename", "FreeSSHDService.exe\0"
+            VALUE "PrivateBuild", "\0"
+            VALUE "ProductName", "FreeSSHDService Module\0"
+            VALUE "ProductVersion", "1, 2, 0, 6\0"
+            VALUE "SpecialBuild", "\0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1200
+    END
+END
+
+#endif    // !_MAC
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// REGISTRY
+//
+
+IDR_FreeSSHDService     REGISTRY MOVEABLE PURE  "FreeSSHDService.rgs"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_PAGE_STATUS DIALOGEX 0, 0, 320, 200
+STYLE DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION " Server status"
+FONT 8, "MS Shell Dlg"
+BEGIN
+    LTEXT           "Telnet server is running",IDC_STATUS_TELNET,92,30,117,9
+    LTEXT           "SSH server is not running",IDC_STATUS_SSH,92,75,148,12
+    LTEXT           "There are 3 users currenty online.",
+                    IDC_STATUS_TELNET_LINE1,92,41,118,8
+    LTEXT           "Click here to start it.",IDC_STATUS_SSH_LINE1,92,86,133,
+                    8
+    ICON            IDI_BAD,IDC_TELNET_PIC,51,30,20,20
+    ICON            IDI_OK,IDC_SSH_PIC,51,75,20,20
+    LTEXT           "freeSSHd version 1.2.0",IDC_LABEL_VERSION,7,185,82,11
+    LTEXT           "Powered by",IDC_LABEL_POWEREDBY,163,185,39,11,0,
+                    WS_EX_TRANSPARENT
+    CONTROL         214,IDC_WEONLYDOLOGO,"Static",SS_BITMAP,202,166,105,34
+    LTEXT           "Click here to stop it.",IDC_STATUS_TELNET_LINE2,92,52,
+                    118,8
+    LTEXT           "",IDC_STATUS_SSH_LINE2,92,97,133,8
+    EDITTEXT        IDC_STATUS_SSHBALLOON,64,90,7,5,ES_AUTOHSCROLL | NOT 
+                    WS_VISIBLE
+    EDITTEXT        IDC_STATUS_TELNETBALLOON,64,45,7,5,ES_AUTOHSCROLL | NOT 
+                    WS_VISIBLE
+END
+
+IDD_PAGE_TELNET DIALOG DISCARDABLE  0, 0, 320, 200
+STYLE DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Telnet"
+FONT 8, "MS Shell Dlg"
+BEGIN
+    COMBOBOX        IDC_TELNET_LISTENADDRESS,92,13,141,44,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    RTEXT           "Listen address:",IDC_LABEL_TELNET_LISTENADDRESS,41,14,
+                    48,8
+    EDITTEXT        IDC_TELNET_PORT,92,27,42,12,ES_AUTOHSCROLL | ES_NUMBER
+    RTEXT           "Port:",IDC_LABEL_TELNET_PORT,41,28,48,8
+    EDITTEXT        IDC_TELNET_MAXCONNECTIONS,92,42,42,12,ES_AUTOHSCROLL | 
+                    ES_NUMBER
+    RTEXT           "Max number of connections:",
+                    IDC_LABEL_TELNET_MAXCONNECTIONS,27,39,61,18
+    EDITTEXT        IDC_TELNET_IDLETIMEOUT,92,57,42,12,ES_AUTOHSCROLL | 
+                    ES_NUMBER
+    RTEXT           "Idle timeout:",IDC_LABEL_TELNET_IDLETIMEOUT,30,59,59,9
+    LTEXT           "seconds",IDC_LABEL_TELNET_IDLETIMEOUTSECONDS,135,59,28,
+                    9
+    EDITTEXT        IDC_TELNET_BANNERMESSAGE,92,72,181,12,ES_AUTOHSCROLL
+    RTEXT           "Banner message:",IDC_LABEL_TELNET_BANNERMESSAGE,30,74,
+                    59,9
+    PUSHBUTTON      "...",IDC_TELNET_BANNERMESSAGE_BROWSE,274,72,16,12
+    EDITTEXT        IDC_TELNET_CMD,92,87,181,12,ES_AUTOHSCROLL
+    RTEXT           "Command shell:",IDC_LABEL_TELNET_CMD,30,90,59,9
+    PUSHBUTTON      "...",IDC_TELNET_CMD_BROWSE,274,87,16,12
+    CONTROL         "Start Telnet server on freeSSHd startup",
+                    IDC_TELNET_AUTOSTART,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,92,103,157,10
+    ICON            217,IDC_PAGEICON,290,5,20,20
+    CONTROL         "Use new console engine",IDC_TELNET_NEWCONSOLE,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,92,114,157,10
+END
+
+IDD_PAGE_SSH DIALOG DISCARDABLE  0, 0, 320, 225
+STYLE DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "SSH"
+FONT 8, "MS Shell Dlg"
+BEGIN
+    COMBOBOX        IDC_SSH_LISTENADDRESS,92,13,141,44,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    RTEXT           "Listen address:",IDC_LABEL_SSH_LISTENADDRESS,41,14,48,8
+    EDITTEXT        IDC_SSH_PORT,92,27,42,12,ES_AUTOHSCROLL | ES_NUMBER
+    RTEXT           "Port:",IDC_LABEL_SSH_PORT,41,28,48,8
+    EDITTEXT        IDC_SSH_MAXCONNECTIONS,92,42,42,12,ES_AUTOHSCROLL | 
+                    ES_NUMBER
+    RTEXT           "Max number of connections:",
+                    IDC_LABEL_SSH_MAXCONNECTIONS,27,39,61,18
+    EDITTEXT        IDC_SSH_IDLETIMEOUT,92,57,42,12,ES_AUTOHSCROLL | 
+                    ES_NUMBER
+    RTEXT           "Idle timeout:",IDC_LABEL_TELNET_IDLETIMEOUT,30,59,59,9
+    LTEXT           "seconds",IDC_LABEL_SSH_IDLETIMEOUTSECONDS,135,59,28,9
+    EDITTEXT        IDC_SSH_BANNERMESSAGE,92,72,181,12,ES_AUTOHSCROLL
+    RTEXT           "Banner message:",IDC_LABEL_SSH_BANNERMESSAGE,30,74,59,9
+    PUSHBUTTON      "...",IDC_SSH_BANNERMESSAGE_BROWSE,274,72,16,12
+    EDITTEXT        IDC_SSH_CMD,92,87,181,12,ES_AUTOHSCROLL
+    RTEXT           "Command shell:",IDC_LABEL_SSH_CMD,11,90,78,9
+    PUSHBUTTON      "...",IDC_SSH_CMD_BROWSE,274,87,16,12
+    CONTROL         "Start SSH server on freeSSHd startup",IDC_SSH_AUTOSTART,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,92,103,157,10
+    ICON            IDI_PAGE_SSH,IDC_PAGEICON,290,5,20,20
+    EDITTEXT        IDC_SSH_RSAKEY,92,131,152,12,ES_AUTOHSCROLL | 
+                    ES_READONLY
+    RTEXT           "RSA key: ",IDC_LABEL_SSH_RSAKEY,50,133,38,9
+    PUSHBUTTON      "...",IDC_SSH_RSAKEY_BROWSE,245,131,16,12
+    LTEXT           "No key file specified.",IDC_LABEL_SSH_RSAKEY_STATUS,92,
+                    147,152,12,SS_SUNKEN
+    PUSHBUTTON      "New...",IDC_SSH_RSAKEY_NEW,263,131,27,12
+    EDITTEXT        IDC_SSH_DSAKEY,91,170,152,12,ES_AUTOHSCROLL | 
+                    ES_READONLY
+    RTEXT           "DSA key: ",IDC_LABEL_SSH_DSAKEY,49,171,38,9
+    PUSHBUTTON      "...",IDC_SSH_DSAKEY_BROWSE,245,170,16,12
+    LTEXT           "No key file specified.",IDC_LABEL_SSH_DSAKEY_STATUS,91,
+                    186,152,12,SS_SUNKEN
+    PUSHBUTTON      "New...",IDC_SSH_DSAKEY_NEW,263,170,27,12
+    CTEXT           "[none]",IDC_LABEL_SSH_RSAKEY_BITS,245,147,45,12,
+                    SS_SUNKEN
+    CTEXT           "[none]",IDC_LABEL_SSH_DSAKEY_BITS,245,185,45,12,
+                    SS_SUNKEN
+    CONTROL         "Use new console engine",IDC_SSH_NEWCONSOLE,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,92,114,157,10
+END
+
+IDD_PAGE_USERS DIALOG DISCARDABLE  0, 0, 320, 200
+STYLE DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Users"
+FONT 8, "MS Shell Dlg"
+BEGIN
+    PUSHBUTTON      "Add...",IDC_USERS_ADD,8,12,62,14
+    PUSHBUTTON      "Change...",IDC_USERS_CHANGE,71,12,62,14,WS_DISABLED
+    PUSHBUTTON      "Remove",IDC_USERS_REMOVE,134,12,62,14,WS_DISABLED
+    ICON            IDI_PAGE_USERS,IDC_PAGEICON,290,5,20,20
+    LISTBOX         IDC_USERS_LIST,8,44,304,148,LBS_SORT | 
+                    LBS_OWNERDRAWFIXED | LBS_HASSTRINGS | 
+                    LBS_NOINTEGRALHEIGHT | LBS_DISABLENOSCROLL | WS_VSCROLL | 
+                    WS_TABSTOP
+    LTEXT           "Shell",IDC_LABEL_USERS_SHELL,164,34,16,8
+    LTEXT           "SFTP",IDC_LABEL_USERS_SFTP,202,34,20,8
+    LTEXT           "Tunnel",IDC_LABEL_USERS_TUNNEL,239,34,24,8
+    LTEXT           "Login",IDC_LABEL_USERS_LOGIN,9,34,23,8
+END
+
+IDD_PAGE_HOSTRESTRICTIONS DIALOG DISCARDABLE  0, 0, 320, 200
+STYLE DS_FIXEDSYS | WS_POPUP | WS_CAPTION
+CAPTION "Host restrictions"
+FONT 8, "MS Shell Dlg"
+BEGIN
+    CONTROL         "Allow only these IP addresses:",
+                    IDC_HOSTRESTRICTIONS_ALLOW,"Button",BS_AUTORADIOBUTTON | 
+                    WS_TABSTOP,16,12,157,11
+    CONTROL         "Refuse these IP addresses:",IDC_HOSTRESTRICTIONS_REFUSE,
+                    "Button",BS_AUTORADIOBUTTON | WS_TABSTOP,15,26,157,11
+    EDITTEXT        IDC_HOSTRESTRICTIONS_IPADDRESSES,16,42,288,133,
+                    ES_MULTILINE | ES_AUTOVSCROLL | ES_AUTOHSCROLL | 
+                    ES_WANTRETURN | WS_VSCROLL
+    CTEXT           "Enter one IP address per line. Wildcards are allowed (e.g. 129.*)",
+                    IDC_LABEL_HOSTRESTRICTIONS_HINT,16,178,283,9
+    ICON            IDI_PAGE_HOSTRESTRICTIONS,IDC_PAGEICON,290,5,20,20
+END
+
+IDD_PAGE_TUNNELING DIALOG DISCARDABLE  0, 0, 320, 200
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Tunneling"
+FONT 8, "MS Sans Serif"
+BEGIN
+    ICON            IDI_PAGE_TUNNELING,IDC_PAGEICON,290,5,21,20
+    CONTROL         "",IDC_TUNNELING_LOCAL,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,127,41,10,11
+    LTEXT           "Allow local port forwarding",IDC_LABEL_TUNNELING_LOCAL,
+                    33,41,92,11
+    CONTROL         "but forward only to localhost (127.0.0.1)",
+                    IDC_TUNNELING_LOCAL_ONLY,"Button",BS_AUTOCHECKBOX | 
+                    WS_DISABLED | WS_TABSTOP,127,55,158,9
+    CONTROL         "",IDC_TUNNELING_REMOTE,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,127,81,10,11
+    LTEXT           "Allow remote port forwarding",
+                    IDC_LABEL_TUNNELING_REMOTE,33,81,92,11
+    CONTROL         "but bind only to localhost (127.0.0.1)",
+                    IDC_TUNNELING_REMOTE_ONLY,"Button",BS_AUTOCHECKBOX | 
+                    WS_DISABLED | WS_TABSTOP,127,94,158,9
+END
+
+IDD_PAGE_LOGGING DIALOGEX 0, 0, 320, 200
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Logging"
+FONT 8, "MS Sans Serif", 0, 0, 0x1
+BEGIN
+    ICON            IDI_PAGE_LOGGING,IDC_PAGEICON,290,5,20,20
+    CONTROL         "Log events",IDC_LOGGING_LOGEVENTS,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,16,14,92,13
+    EDITTEXT        IDC_LOGGING_LOGFILE,60,50,181,12,ES_AUTOHSCROLL | 
+                    WS_DISABLED
+    RTEXT           "Log file:",IDC_LABEL_LOGGING_LOGFILE,29,52,28,9,
+                    WS_DISABLED
+    PUSHBUTTON      "...",IDC_LOGGING_LOGFILE_BROWSE,242,50,16,12,
+                    WS_DISABLED
+    GROUPBOX        "Logging options",IDC_LOGGING_GROUP,15,33,273,134,
+                    WS_DISABLED,WS_EX_TRANSPARENT
+    CONTROL         "Resolve IP addresses into hostnames",
+                    IDC_LOGGING_RESOLVEIP,"Button",BS_AUTOCHECKBOX | 
+                    WS_DISABLED | WS_TABSTOP,33,70,224,11
+    PUSHBUTTON      "Open",IDC_LOGGING_LOGFILE_OPEN,259,50,22,12
+END
+
+IDD_PAGE_CRYPTO DIALOGEX 0, 0, 320, 200
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Encryption"
+FONT 8, "MS Sans Serif", 0, 0, 0x1
+BEGIN
+    ICON            IDI_PAGE_CRYPTO,IDC_PAGEICON,290,5,20,20
+    GROUPBOX        "Allowed ciphers",IDC_CRYPTO_CIPHER_GROUP,7,10,268,114,0,
+                    WS_EX_TRANSPARENT
+    CONTROL         "Any",IDC_CRYPTO_CIPHER_ANY,"Button",BS_AUTORADIOBUTTON,
+                    15,26,78,11
+    CONTROL         "AES (128, 192 and 256 bits)",IDC_CRYPTO_CIPHER_AES,
+                    "Button",BS_AUTORADIOBUTTON,15,37,151,11
+    CONTROL         "AES128",IDC_CRYPTO_CIPHER_AES128,"Button",
+                    BS_AUTORADIOBUTTON,15,49,78,11
+    CONTROL         "AES192",IDC_CRYPTO_CIPHER_AES192,"Button",
+                    BS_AUTORADIOBUTTON,15,60,78,11
+    CONTROL         "AES256",IDC_CRYPTO_CIPHER_AES256,"Button",
+                    BS_AUTORADIOBUTTON,15,71,78,11
+    CONTROL         "3DES",IDC_CRYPTO_CIPHER_3DES,"Button",
+                    BS_AUTORADIOBUTTON,15,82,78,11
+    CONTROL         "Blowfish",IDC_CRYPTO_CIPHER_BLOWFISH,"Button",
+                    BS_AUTORADIOBUTTON,15,93,78,11
+    CONTROL         "CAST128",IDC_CRYPTO_CIPHER_CAST128,"Button",
+                    BS_AUTORADIOBUTTON,15,104,78,11
+    GROUPBOX        "Allowed MACs",IDC_CRYPTO_MACS_GROUP,7,130,268,45,NOT 
+                    WS_VISIBLE,WS_EX_TRANSPARENT
+    CONTROL         "MD5",IDC_CRYPTO_MAC_MD5,"Button",BS_AUTOCHECKBOX | NOT 
+                    WS_VISIBLE | WS_TABSTOP,15,145,89,11
+    CONTROL         "HMAC",IDC_CRYPTO_MAC_HMAC,"Button",BS_AUTOCHECKBOX | 
+                    NOT WS_VISIBLE | WS_TABSTOP,15,157,89,11
+END
+
+IDD_PAGE_SFTP DIALOG DISCARDABLE  0, 0, 320, 200
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "SFTP"
+FONT 8, "MS Sans Serif"
+BEGIN
+    ICON            IDI_PAGE_SFTP,IDC_PAGEICON,290,5,21,20
+    EDITTEXT        IDC_SFTP_HOME,75,33,181,12,ES_AUTOHSCROLL
+    RTEXT           "SFTP home path: ",IDC_LABEL_SFTP_HOME,13,35,59,9
+    PUSHBUTTON      "...",IDC_SFTP_HOME_BROWSE,257,33,16,12
+END
+
+IDD_PAGE_AUTH DIALOGEX 0, 0, 320, 200
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Authentication"
+FONT 8, "MS Sans Serif", 0, 0, 0x1
+BEGIN
+    ICON            IDI_PAGE_AUTH,IDC_PAGEICON,290,5,20,20
+    GROUPBOX        "Password authentication",IDC_LABEL_AUTH_PASSWORD_GROUP,
+                    13,65,268,28,WS_GROUP,WS_EX_TRANSPARENT
+    CONTROL         "Disabled",IDC_AUTH_PASSWORD_DISABLED,"Button",
+                    BS_AUTORADIOBUTTON,24,77,48,10
+    CONTROL         "Allowed",IDC_AUTH_PASSWORD_ALLOWED,"Button",
+                    BS_AUTORADIOBUTTON,125,77,48,10
+    CONTROL         "Required",IDC_AUTH_PASSWORD_REQUIRED,"Button",
+                    BS_AUTORADIOBUTTON,229,77,48,10
+    GROUPBOX        "Public key authentication",
+                    IDC_LABEL_AUTH_PUBLICKEY_GROUP,13,103,268,28,WS_GROUP,
+                    WS_EX_TRANSPARENT
+    CONTROL         "Disabled",IDC_AUTH_PUBLICKEY_DISABLED,"Button",
+                    BS_AUTORADIOBUTTON,23,114,48,10
+    CONTROL         "Allowed",IDC_AUTH_PUBLICKEY_ALLOWED,"Button",
+                    BS_AUTORADIOBUTTON,125,114,48,10
+    CONTROL         "Required",IDC_AUTH_PUBLICKEY_REQUIRED,"Button",
+                    BS_AUTORADIOBUTTON,229,114,48,10
+    EDITTEXT        IDC_AUTH_PUBLICKEYFOLDER,77,39,184,12,ES_AUTOHSCROLL
+    RTEXT           "Public key folder: ",IDC_LABEL_AUTH_PUBLICKEYFOLDER,15,
+                    41,59,9
+    PUSHBUTTON      "...",IDC_AUTH_PUBLICKEYFOLDER_BROWSE,264,39,16,12
+END
+
+IDD_USERPAGE_1 DIALOG DISCARDABLE  0, 0, 236, 193
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "General"
+FONT 8, "MS Sans Serif"
+BEGIN
+    ICON            IDI_PAGE_USERS,IDC_PAGEICON,208,7,20,20
+    EDITTEXT        IDC_USERPAGE1_LOGIN,72,37,134,12,ES_AUTOHSCROLL
+    RTEXT           "Login:",IDC_LABEL_USERPAGE1_LOGIN,8,39,60,8
+    COMBOBOX        IDC_USERPAGE1_AUTH,72,53,134,44,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    RTEXT           "Authorization:",IDC_LABEL_USERPAGE1_AUTH,8,54,60,8
+    EDITTEXT        IDC_USERPAGE1_PASSWORD,72,69,134,12,ES_PASSWORD | 
+                    ES_AUTOHSCROLL
+    RTEXT           "Password:",IDC_LABEL_USERPAGE1_PASSWORD,8,70,60,8
+    EDITTEXT        IDC_USERPAGE1_PASSWORD2,72,85,134,12,ES_PASSWORD | 
+                    ES_AUTOHSCROLL
+    RTEXT           "Password (again):",IDC_LABEL_USERPAGE1_PASSWORD2,8,86,
+                    60,8
+    EDITTEXT        IDC_USERPAGE1_DOMAIN,72,101,134,12,ES_AUTOHSCROLL
+    RTEXT           "Domain:",IDC_LABEL_USERPAGE1_DOMAIN,8,102,60,8
+    LTEXT           "User can use:",IDC_LABEL_USERPAGE1_USERCANUSE,20,125,48,
+                    9
+    CONTROL         "Shell",IDC_USERPAGE1_SHELL,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,73,126,103,8
+    CONTROL         "SFTP",IDC_USERPAGE1_SFTP,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,73,139,103,8
+    CONTROL         "Tunneling",IDC_USERPAGE1_TUNNELING,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,73,152,103,8
+END
+
+IDD_PAGE_ONLINEUSERS DIALOG DISCARDABLE  0, 0, 320, 200
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Online users"
+FONT 8, "MS Sans Serif"
+BEGIN
+    ICON            IDI_PAGE_USERS,IDC_PAGEICON,290,5,20,20
+    CONTROL         "List1",IDC_ONLINEUSERS_LIST,"SysListView32",LVS_REPORT | 
+                    LVS_SINGLESEL | WS_BORDER | WS_TABSTOP,7,31,272,153
+    PUSHBUTTON      "Disconnect",IDC_ONLINEUSERS_DISCONNECT,210,11,68,14,
+                    WS_DISABLED
+END
+
+IDD_PAGE_UPDATE DIALOGEX 0, 0, 320, 200
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Automatic updates"
+FONT 8, "MS Sans Serif", 0, 0, 0x1
+BEGIN
+    ICON            IDI_PAGE_UPDATE,IDC_PAGEICON,290,5,21,20
+    PUSHBUTTON      "Check now!",IDC_UPDATE_CHECKNOW,219,163,50,16
+    CONTROL         "Check for new version on startup.",
+                    IDC_UPDATE_CHECKONSTARTUP,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,13,18,121,12
+    GROUPBOX        "Update options",IDC_UPDATE_OPTIONS,13,38,257,121,0,
+                    WS_EX_TRANSPARENT
+    CONTROL         "Update without asking me for confirmation",
+                    IDC_UPDATE_DONTPROMPT,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,30,60,187,13
+    CONTROL         "Show info messages from freeSSHd.com",
+                    IDC_UPDATE_SHOWMESSAGES,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,30,76,184,11
+END
+
+IDD_MESSAGEDLG DIALOG DISCARDABLE  0, 0, 238, 134
+STYLE DS_SETFOREGROUND | WS_CAPTION | WS_THICKFRAME
+CAPTION "freeSSHd.com"
+FONT 8, "MS Sans Serif"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,181,113,50,14
+    LTEXT           "Caption goes here",IDC_MESSAGEDLG_CAPTION,7,7,224,16,
+                    SS_CENTERIMAGE
+    LTEXT           "Text",IDC_MESSAGEDLG_TEXT,7,27,224,77,SS_SUNKEN
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO DISCARDABLE 
+BEGIN
+    IDD_PAGE_STATUS, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 307
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 196
+    END
+
+    IDD_PAGE_TELNET, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 310
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 186
+    END
+
+    IDD_PAGE_SSH, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 310
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 218
+    END
+
+    IDD_PAGE_USERS, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 312
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 192
+    END
+
+    IDD_PAGE_HOSTRESTRICTIONS, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 179
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 88
+    END
+
+    IDD_PAGE_TUNNELING, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 311
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 190
+    END
+
+    IDD_PAGE_LOGGING, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 310
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 192
+    END
+
+    IDD_PAGE_CRYPTO, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 310
+        VERTGUIDE, 15
+        TOPMARGIN, 7
+    END
+
+    IDD_PAGE_SFTP, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 310
+        TOPMARGIN, 6
+        BOTTOMMARGIN, 192
+    END
+
+    IDD_PAGE_AUTH, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 310
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 192
+    END
+
+    IDD_USERPAGE_1, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 229
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 186
+    END
+
+    IDD_PAGE_ONLINEUSERS, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 310
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 184
+    END
+
+    IDD_PAGE_UPDATE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 310
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 193
+    END
+
+    IDD_MESSAGEDLG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 231
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 127
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDR_MENU MENU DISCARDABLE 
+BEGIN
+    POPUP "POPUP"
+    BEGIN
+        MENUITEM "Settings...",                 ID_POPUP_SETTINGS
+        MENUITEM SEPARATOR
+        MENUITEM "Unload",                      ID_POPUP_UNLOAD
+    END
+    POPUP "POPUP2"
+    BEGIN
+        MENUITEM "512 bits",                    ID_POPUP2_512BITS
+        MENUITEM "1024 bits",                   ID_POPUP2_1024BITS
+        MENUITEM "2048 bits",                   ID_POPUP2_2048BITS
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDB_WEONLYDO            BITMAP  DISCARDABLE     "Images\\weonlydosm.bmp"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDS_SERVICENAME         "FreeSSHDService"
+END
+
+#endif    // Croatian resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.K.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENG)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_UK
+#pragma code_page(1252)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// 24
+//
+
+1                       24      MOVEABLE PURE   "freeSSHdservice.exe.manifest"
+#endif    // English (U.K.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+1 TYPELIB "FreeSSHDService.tlb"
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+
