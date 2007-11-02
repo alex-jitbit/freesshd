@@ -27,7 +27,7 @@
 		#include "..\..\..\..\wodAppUpdate\Win32LIB\Win32LIB.h"
 	}	
 #else
-	#import "D:\Windows\System32\wodappup.dll"  raw_interfaces_only named_guids
+	#import "c:\Windows\System32\wodappup.dll"  raw_interfaces_only named_guids
 #endif
 
 #include <shellapi.h>
@@ -37,12 +37,7 @@
 
 
 #ifdef _ISFREEOPEN
-	#ifdef _DEBUG
-		#import "D:\\Posao\freeSSHd\Code\Component\Debug\wodSSHD.DLL"  named_guids
-		//#include "D:\Posao\freeSSHd\Code\FreeSSHDService\Objs\wodSSHD.tlh" 
-	#else
-		#import "D:\Posao\freeSSHd\Code\Component\Debug\wodSSHD.DLL"  named_guids
-	#endif
+		#import "C:\windows\system32\wodsshd.dll"  named_guids
 #endif
 
 #ifdef _ISFREEEXE
