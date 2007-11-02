@@ -16,7 +16,7 @@
 
 using namespace std;
 
-#import "D:\Windows\System32\wodappup.dll"  no_namespace raw_interfaces_only named_guids
+#import "C:\Windows\System32\wodappup.dll"  no_namespace raw_interfaces_only named_guids
 
 
 bool IsWinNT();
