@@ -587,8 +587,6 @@ CfreeSSHdUser * CfreeSSHdHandler::GetUser(char * Login)
 	{
 		if (CompareString(LOCALE_SYSTEM_DEFAULT, NORM_IGNORECASE, Users[i]->GetName(), -1, Login, -1) == CSTR_EQUAL)
 			return Users[i];
-		else
-			MessageBox(NULL, Users[i]->GetName(),"",MB_OK);
 	}
 
 	return NULL;

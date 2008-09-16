@@ -16,8 +16,9 @@
 
 using namespace std;
 
+#ifdef _ISFREEOPEN
 #import "C:\Windows\System32\wodappup.dll"  no_namespace raw_interfaces_only named_guids
-
+#endif
 
 bool IsWinNT();
 

@@ -9,6 +9,7 @@
 #define HANDLER _Module.freeSSHdHandler
 
 class CUserPage1;
+class CUserPage2;
 
 class CUserDlg : public CResizablePropertySheetImpl<CUserDlg> 
 {
@@ -18,6 +19,7 @@ public:
 	bool m_fNewUser;
 	CfreeSSHdUser *m_User;
 	CUserPage1 *m_pgPage1;
+//	CUserPage2 *m_pgPage2;
 
 	CUserDlg(::ATL::_U_STRINGorID title = (LPCTSTR)NULL, UINT uStartPage = 0, HWND hWndParent = NULL, bool EnableDoubleBuffering = false, bool IsWizard = false)
 		: CResizablePropertySheetImpl<CUserDlg>(title, uStartPage, hWndParent, EnableDoubleBuffering, IsWizard),

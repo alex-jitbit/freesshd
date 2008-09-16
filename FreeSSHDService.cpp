@@ -11,6 +11,8 @@
 #include "FreeSSHDService.h"
 #include "FreeSSHDService_i.c"
 
+#include <tlhelp32.h>
+
 #ifdef _ISFREEEXE
 #include "../../component/wodSSHDCom.h"
 #include "../../component/SSHKeyPair.h"
@@ -40,7 +42,7 @@ CServiceModule _Module;
 
 CwodSSHDComPtr m_Telnet;
 CwodSSHDComPtr m_SSH;
-EventsStruct m_TelnetEvents, m_SSHEvents;
+
 	
 BEGIN_OBJECT_MAP(ObjectMap)
 END_OBJECT_MAP()
@@ -342,8 +344,7 @@ inline void CServiceModule::ServiceMain(DWORD /* dwArgc */, LPTSTR* /* lpszArgv 
 		freeSSHdHandler.m_Update->put_CmdLine(cmdline);
 #else
 		WODAPPUPDCOMLib::AppUpd_SetCmdBefore(freeSSHdHandler.m_Update, "net stop freesshdservice");
-		WODAPPUPDCOMLib::AppUpd_SetCmdAfter(freeSSHdHandler.m_Update, "net start freesshdservice");
-		
+		WODAPPUPDCOMLib::AppUpd_SetCmdAfter(freeSSHdHandler.m_Update, "net start freesshdservice");	
 #endif
 	}
 
@@ -599,6 +600,87 @@ extern "C" int WINAPI _tWinMain(HINSTANCE hInstance,
     return _Module.m_status.dwWin32ExitCode;
 }
 
+#define BUFF_SIZE   1024
+
+BOOL IsAdmin(HANDLE hProcess) 
+{
+    HANDLE          hToken = NULL;
+    PSID            pAdminSid = NULL;
+    BYTE            buffer[BUFF_SIZE];
+    PTOKEN_GROUPS   pGroups = (PTOKEN_GROUPS)buffer; 
+    DWORD           dwSize;             // buffer size
+    DWORD           i;
+    BOOL            bSuccess;
+	
+    SID_IDENTIFIER_AUTHORITY siaNtAuth = SECURITY_NT_AUTHORITY;
+	
+	// get token handle
+	if ( !OpenProcessToken ( hProcess, TOKEN_QUERY, &hToken ) )
+		return false;
+	
+	bSuccess = GetTokenInformation ( hToken, TokenGroups,  (LPVOID)pGroups, BUFF_SIZE,  &dwSize );
+	CloseHandle ( hToken );
+	
+	if ( !bSuccess )
+		return false;
+	if ( !AllocateAndInitializeSid ( &siaNtAuth, 2, 
+		SECURITY_BUILTIN_DOMAIN_RID,
+		DOMAIN_ALIAS_RID_ADMINS,
+		0,0,0,0,0,0, &pAdminSid ) )
+		return false;
+	
+	bSuccess = FALSE;
+	for ( i = 0; (i < pGroups->GroupCount) && !bSuccess; i++ )
+	{
+		if ( EqualSid ( pAdminSid, pGroups->Groups[i].Sid ) )
+			bSuccess = TRUE;
+	}
+	FreeSid ( pAdminSid );
+	
+	return bSuccess;
+}
+
+BOOL IsLoggedOnUserAdmin()
+{
+	HANDLE hProcessSnap;
+	HANDLE hProcess;
+	PROCESSENTRY32 pe32;
+	
+	hProcessSnap = CreateToolhelp32Snapshot( TH32CS_SNAPPROCESS, 0 );
+	if( hProcessSnap == INVALID_HANDLE_VALUE )
+	{
+		return FALSE;
+	}
+	
+	pe32.dwSize = sizeof( PROCESSENTRY32 );
+	
+	if( !Process32First( hProcessSnap, &pe32 ) )
+	{
+		CloseHandle( hProcessSnap );
+		return FALSE;
+	}
+	do
+	{
+		if (!stricmp(pe32.szExeFile, "explorer.exe"))
+		{
+			BOOL fIsAdmin = FALSE;
+			hProcess = OpenProcess( PROCESS_ALL_ACCESS, FALSE, pe32.th32ProcessID );
+			if( hProcess != NULL )
+			{
+				fIsAdmin = IsAdmin(hProcess);
+				CloseHandle(hProcess);
+			}
+			CloseHandle( hProcessSnap );
+			return fIsAdmin;
+		}
+		
+		
+	} while( Process32Next( hProcessSnap, &pe32 ) );
+	
+	CloseHandle( hProcessSnap );
+	return( FALSE );
+}
+
 LRESULT CALLBACK MainWindowProc(HWND hwnd,UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 	CServiceModule *sm = NULL;
@@ -679,15 +761,24 @@ LRESULT CALLBACK MainWindowProc(HWND hwnd,UINT uMsg, WPARAM wParam, LPARAM lPara
 			sm->m_NotifyIcon.uFlags = NIF_MESSAGE | NIF_ICON | NIF_TIP;
 			sm->m_NotifyIcon.uCallbackMessage = WM_ICON_NOTIFY;
 			strcpy(sm->m_NotifyIcon.szTip, "FreeSSHDService");
+		
 
 
-			if (Shell_NotifyIcon(NIM_ADD, &sm->m_NotifyIcon))
+			if (IsLoggedOnUserAdmin())
 			{
-				sm->LogEvent("success!");
-				UpdateNotifyIcon();
+				Shell_NotifyIcon(NIM_ADD, &sm->m_NotifyIcon);
+				WriteLog("Tray icon shown (admin logged in)");
 			}
 			else
-				sm->LogEvent("failure!");
+			{
+				WriteLog("Tray icon not show (no admin rights)");
+				if (!_Module.m_bService)
+				{
+					MessageBox(NULL, "You don't have administrator rights! freeSSHd will close!", "Security", MB_ICONERROR);
+					PostQuitMessage(1);
+					return 0;
+				}
+			}
 
 
 			// Reset the Window station and desktop
@@ -761,8 +852,6 @@ int StartSSH(void)
 {
 	int success = 0;
 	
-	CComBSTR dbg = "C:\\test.txt";
-	m_SSH->put_DebugFile(dbg);
 	m_SSH->put_Port(_Module.freeSSHdHandler.Config.SSHListenPort);
 	CComBSTR b = _Module.freeSSHdHandler.Config.SSHListenAddress;
 	m_SSH->put_BindIP(b);
@@ -1664,13 +1753,84 @@ void CServiceModule::SSH_ServiceStart(CwodSSHDComPtr Owner, CSSHUser *User, int 
 		User->Send(bstrText, vt);
 	}
 }
-void CServiceModule::SSH_SftpListDir(CwodSSHDComPtr Owner, CSSHUser *User, BSTR RelativePath, BSTR *ResolvedPath, SSHActions *Action){}
-void CServiceModule::SSH_SftpDownloadFile(CwodSSHDComPtr Owner, CSSHUser *User, BSTR RelativePath, BSTR *ResolvedPath, SSHActions *Action){}
-void CServiceModule::SSH_SftpUploadFile(CwodSSHDComPtr Owner, CSSHUser *User, BSTR RelativePath, BSTR *ResolvedPath, SSHActions *Action){}
-void CServiceModule::SSH_SftpRemoveDir(CwodSSHDComPtr Owner, CSSHUser *User, BSTR RelativePath, BSTR *ResolvedPath, SSHActions *Action){}
-void CServiceModule::SSH_SftpDeleteFile(CwodSSHDComPtr Owner, CSSHUser *User, BSTR RelativePath, BSTR *ResolvedPath, SSHActions *Action){}
-void CServiceModule::SSH_SftpMakeDir(CwodSSHDComPtr Owner, CSSHUser *User, BSTR RelativePath, BSTR *ResolvedPath, SSHActions *Action){}
-void CServiceModule::SSH_SftpRename(CwodSSHDComPtr Owner, CSSHUser *User, BSTR RelativePath, BSTR *ResolvedPath, BSTR *NewName, SSHActions *Action){}
+void CServiceModule::SSH_SftpListDir(CwodSSHDComPtr Owner, CSSHUser *User, BSTR RelativePath, BSTR *ResolvedPath, SSHActions *Action)
+{
+	_bstr_t t("is listing ");
+
+	t += RelativePath;
+	t += " (";
+	t += *ResolvedPath;
+	t += ")";
+
+	WriteUserLog(User, (char *) t);
+}
+void CServiceModule::SSH_SftpDownloadFile(CwodSSHDComPtr Owner, CSSHUser *User, BSTR RelativePath, BSTR *ResolvedPath, SSHActions *Action)
+{
+	_bstr_t t("is downloading ");
+	
+	t += RelativePath;
+	t += " (";
+	t += *ResolvedPath;
+	t += ")";
+	
+	WriteUserLog(User, (char *) t);
+}
+void CServiceModule::SSH_SftpUploadFile(CwodSSHDComPtr Owner, CSSHUser *User, BSTR RelativePath, BSTR *ResolvedPath, SSHActions *Action)
+{
+	_bstr_t t("is uploading ");
+	
+	t += RelativePath;
+	t += " (";
+	t += *ResolvedPath;
+	t += ")";
+	
+	WriteUserLog(User, (char *) t);
+}
+void CServiceModule::SSH_SftpRemoveDir(CwodSSHDComPtr Owner, CSSHUser *User, BSTR RelativePath, BSTR *ResolvedPath, SSHActions *Action)
+{
+	_bstr_t t("is removing ");
+	
+	t += RelativePath;
+	t += " (";
+	t += *ResolvedPath;
+	t += ")";
+	
+	WriteUserLog(User, (char *) t);
+}
+void CServiceModule::SSH_SftpDeleteFile(CwodSSHDComPtr Owner, CSSHUser *User, BSTR RelativePath, BSTR *ResolvedPath, SSHActions *Action)
+{
+	_bstr_t t("is deleting ");
+	
+	t += RelativePath;
+	t += " (";
+	t += *ResolvedPath;
+	t += ")";
+	
+	WriteUserLog(User, (char *) t);
+}
+void CServiceModule::SSH_SftpMakeDir(CwodSSHDComPtr Owner, CSSHUser *User, BSTR RelativePath, BSTR *ResolvedPath, SSHActions *Action)
+{
+	_bstr_t t("is making ");
+	
+	t += RelativePath;
+	t += " (";
+	t += *ResolvedPath;
+	t += ")";
+	
+	WriteUserLog(User, (char *) t);
+}
+void CServiceModule::SSH_SftpRename(CwodSSHDComPtr Owner, CSSHUser *User, BSTR RelativePath, BSTR *ResolvedPath, BSTR *NewName, SSHActions *Action)
+{
+	_bstr_t t("is renaming ");
+	
+	t += RelativePath;
+	t += " (";
+	t += *ResolvedPath;
+	t += ") to ";
+	t += *NewName;
+	
+	WriteUserLog(User, (char *) t);
+}
 void CServiceModule::SSH_PortBindRequest(CwodSSHDComPtr Owner, CSSHUser *User, BSTR *BindIP, long *BindPort, SSHActions *Action)
 {
 	*Action = (SSHActions) 0;

@@ -161,3 +161,21 @@ LRESULT CUserPage1::OnPasswordChange(WORD wCode, WORD wID, HWND hWnd)
 
 	return TRUE;
 }
+
+//////////////////////////////////////////////////////////
+// CUserPage2
+//////////////////////////////////////////////////////////
+
+BOOL CUserPage2::OnQueryCancel()
+{
+	return FALSE;
+}
+
+LRESULT CUserPage2::OnInitDialog(HWND hWnd, LPARAM lParam)
+{
+	m_fInit = true;
+	
+	SetMsgHandled(FALSE);
+	
+	return TRUE;
+}

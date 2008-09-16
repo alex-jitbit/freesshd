@@ -40,4 +40,30 @@ public:
 	END_DLGRESIZE_MAP()
 };
 
+class CUserPage2 : public CResizablePropertyPageImpl<CUserPage2> 
+{
+	
+public:
+	bool m_fInit;
+	CUserDlg *m_Parent; 
+	CComboBox m_AuthBox;
+	
+	enum { IDD = IDD_USERPAGE_2 };
+	
+	CUserPage2(::ATL::_U_STRINGorID title = (LPCTSTR) NULL, bool IsExterior = false, bool EnableDoubleBuffer = false) : CResizablePropertyPageImpl<CUserPage2>(title, IsExterior, EnableDoubleBuffer),m_Parent(NULL){}
+	
+	LRESULT OnInitDialog(HWND hWnd, LPARAM lParam);
+	BOOL OnQueryCancel();
+	
+	BEGIN_MSG_MAP_EX(CResizablePropertyPageImpl)
+		MSG_WM_INITDIALOG(OnInitDialog)
+		CHAIN_MSG_MAP(CResizablePropertyPageImpl<CUserPage2>)
+		CHAIN_MSG_MAP(CDialogResize<CUserPage2>)
+		END_MSG_MAP()
+		
+		BEGIN_DLGRESIZE_MAP(CUserPage2)
+			DLGRESIZE_CONTROL(IDC_PAGEICON, DLSZ_MOVE_X)
+		END_DLGRESIZE_MAP()
+};
+
 #endif

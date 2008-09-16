@@ -22,6 +22,8 @@
 
 
 #ifdef _ISFREEEXE
+#include <comdef.h>
+
 	namespace WODAPPUPDCOMLib
 	{
 		#include "..\..\..\..\wodAppUpdate\Win32LIB\Win32LIB.h"
@@ -178,32 +180,6 @@ public:
 extern CwodSSHDComPtr m_Telnet;
 extern CwodSSHDComPtr m_SSH;
 
-typedef struct EventsStruct
-{
-		void (*Connecting)(CwodSSHDComPtr Owner, CSSHUser *User, SSHActions *Action);
-		void (*LoginPassword)(CwodSSHDComPtr Owner, CSSHUser *User, BSTR Login, BSTR Password, SSHActions *Action);
-		void (*Disconnected)(CwodSSHDComPtr Owner, CSSHUser *User);
-		void (*StateChanged)(CwodSSHDComPtr Owner, CSSHUser *User, SSHStates NewState, SSHStates OldState);
-		void (*Received)(CwodSSHDComPtr Owner, CSSHUser *User, int ServiceIndex, int BytesCount);
-		void (*ServiceRequest)(CwodSSHDComPtr Owner, CSSHUser *User, int ServiceIndex, SSHServiceTypes *ServiceType, BSTR *ServicePath, SSHActions *Action);
-		void (*ServiceStart)(CwodSSHDComPtr Owner, CSSHUser *User, int ServiceIndex, SSHServiceTypes ServiceType, BSTR ServiceName);
-		void (*SftpListDir)(CwodSSHDComPtr Owner, CSSHUser *User, BSTR RelativePath, BSTR *ResolvedPath, SSHActions *Action);
-		void (*SftpDownloadFile)(CwodSSHDComPtr Owner, CSSHUser *User, BSTR RelativePath, BSTR *ResolvedPath, SSHActions *Action);
-		void (*SftpUploadFile)(CwodSSHDComPtr Owner, CSSHUser *User, BSTR RelativePath, BSTR *ResolvedPath, SSHActions *Action);
-		void (*SftpRemoveDir)(CwodSSHDComPtr Owner, CSSHUser *User, BSTR RelativePath, BSTR *ResolvedPath, SSHActions *Action);
-		void (*SftpDeleteFile)(CwodSSHDComPtr Owner, CSSHUser *User, BSTR RelativePath, BSTR *ResolvedPath, SSHActions *Action);
-		void (*SftpMakeDir)(CwodSSHDComPtr Owner, CSSHUser *User, BSTR RelativePath, BSTR *ResolvedPath, SSHActions *Action);
-		void (*SftpRename)(CwodSSHDComPtr Owner, CSSHUser *User, BSTR RelativePath, BSTR *ResolvedPath, BSTR *NewName, SSHActions *Action);
-		void (*PortBindRequest)(CwodSSHDComPtr Owner, CSSHUser *User, BSTR *BindIP, long *BindPort, SSHActions *Action);
-		void (*PortForwardRequest)(CwodSSHDComPtr Owner, CSSHUser *User, BSTR *RemoteHost, long *RemotePort, SSHActions *Action);
-		void (*PortForwardConnect)(CwodSSHDComPtr Owner, CSSHUser *User, BSTR RemoteHost, long RemotePort, SSHActions *Action);
-		void (*PortForwardDisconnect)(CwodSSHDComPtr Owner, CSSHUser *User, BSTR RemoteHost, long RemotePort);
-		void (*LoginPubkey)(CwodSSHDComPtr Owner, CSSHUser *User, BSTR Login, BSTR PublicKey, SSHActions *Action);
-		void (*CryptoInformation)(CwodSSHDComPtr Owner, CSSHUser *User, BSTR Protocol, BSTR RemoteName, BSTR SCcipher, BSTR CScipher, BSTR Keys, VARIANT_BOOL *Accept);
-} EventsStruct;
-
-extern EventsStruct m_TelnetEvents, m_SSHEvents;
-
 extern CServiceModule _Module;
 
 #define _WTL_NEW_PAGE_NOTIFY_HANDLERS
@@ -226,8 +202,6 @@ extern CServiceModule _Module;
 
 #include <atlmisc.h>
 
-//#import "D:\Windows\System32\wodappup.dll"  no_namespace raw_interfaces_only named_guids
-
 int StartSSH();
 int StartTelnet();
 
@@ -237,6 +211,8 @@ int ReloadTelnet();
 #include "wodAppUpdateEvents.h"
 
 void ShowBallonError(HWND Edit_hWnd, LPWSTR pszText);
+
+BOOL IsLoggedOnUserAdmin();
 
 #define TESTDLGMESSAGE( x ) if (bProcess && HANDLER.##x && HANDLER.##x->IsWindow() && ::IsDialogMessage(HANDLER.##x->m_hWnd, &msg)) \
 						bProcess = FALSE;

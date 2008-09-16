@@ -42,6 +42,7 @@
 #define IDD_PAGE_UPDATE                 241
 #define IDD_MESSAGEDLG                  242
 #define IDI_PAGE_UPDATE                 245
+#define IDD_USERPAGE_2                  246
 #define IDC_LBL_TITLE                   1000
 #define IDC_STATIC_NEXT                 1001
 #define IDC_LBL_WELCOME                 1002
@@ -141,6 +142,7 @@
 #define IDC_CRYPTO_MAC_MD5              1104
 #define IDC_CRYPTO_MAC_HMAC             1105
 #define IDC_LABEL_SSH_LISTENADDRESS     1106
+#define IDC_CRYPTO_CIPHER_NONE          1106
 #define IDC_LABEL_SSH_PORT              1107
 #define IDC_LABEL_SSH_MAXCONNECTIONS    1108
 #define IDC_LABEL_SSH_IDLETIMEOUTSECONDS 1109
@@ -202,6 +204,8 @@
 #define IDC_UPDATE_SHOWMESSAGES         1166
 #define IDC_MESSAGEDLG_CAPTION          1168
 #define IDC_MESSAGEDLG_TEXT             1169
+#define ID_CMDTERMEXE                   1170
+#define IDC_HOSTRESTRICTIONS_ANTIHAMMER 1171
 #define ID_POPUP_SETTINGS               32772
 #define ID_POPUP_UNLOAD                 32773
 #define ID_POPUP2_512BITS               32774
@@ -212,9 +216,9 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        246
+#define _APS_NEXT_RESOURCE_VALUE        247
 #define _APS_NEXT_COMMAND_VALUE         32777
-#define _APS_NEXT_CONTROL_VALUE         1170
+#define _APS_NEXT_CONTROL_VALUE         1172
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif
