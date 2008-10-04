@@ -1720,6 +1720,12 @@ void CServiceModule::SSH_ServiceRequest(CwodSSHDComPtr Owner, CSSHUser *User, in
 		}
 		if ((*ServiceType == (SSHServiceTypes) 3) || (	*ServiceType == (SSHServiceTypes) 5))
 		{
+			if (strcmp(path.ToString(),"sftp") != 0 && strcmp(path.ToString(),"scp") != 0)
+			{
+				*Action = (SSHActions) 0;
+				return;
+			}
+
 			if (freeUser->HasSFTPAccess())
 			{
 				*Action = (SSHActions) 1;

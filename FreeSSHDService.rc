@@ -13,6 +13,15 @@
 #undef APSTUDIO_READONLY_SYMBOLS
 
 /////////////////////////////////////////////////////////////////////////////
+// Croatian resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_HRV)
+#ifdef _WIN32
+LANGUAGE LANG_CROATIAN, SUBLANG_DEFAULT
+#pragma code_page(1250)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
 //
 // Icon
 //
@@ -69,8 +78,8 @@ END
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 1,2,1,13
- PRODUCTVERSION 1,2,1,13
+ FILEVERSION 1,2,1,14
+ PRODUCTVERSION 1,2,1,14
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -88,7 +97,7 @@ BEGIN
             VALUE "Comments", "\0"
             VALUE "CompanyName", "\0"
             VALUE "FileDescription", "FreeSSHDService Module\0"
-            VALUE "FileVersion", "1, 2, 1, 13\0"
+            VALUE "FileVersion", "1, 2, 1, 14\0"
             VALUE "InternalName", "FreeSSHDService\0"
             VALUE "LegalCopyright", "Copyright 2007-2008\0"
             VALUE "LegalTrademarks", "\0"
@@ -96,7 +105,7 @@ BEGIN
             VALUE "OriginalFilename", "FreeSSHDService.exe\0"
             VALUE "PrivateBuild", "\0"
             VALUE "ProductName", "FreeSSHDService Module\0"
-            VALUE "ProductVersion", "1, 2, 1, 13\0"
+            VALUE "ProductVersion", "1, 2, 1, 14\0"
             VALUE "SpecialBuild", "\0"
         END
     END
@@ -641,6 +650,7 @@ BEGIN
     IDS_SERVICENAME         "FreeSSHDService"
 END
 
+#endif    // Croatian resources
 /////////////////////////////////////////////////////////////////////////////
 
 
