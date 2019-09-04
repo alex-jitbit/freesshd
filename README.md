@@ -1,7 +1,9 @@
 # FreeSSHd source codes
 
-The project website at http://www.freesshd.com/ seems to be abandoned and the tool hasn't been updated since 2009.
+FreeSSHs was one a good SSH server for Windows operating system. It still works and used in production by many companies.
 
-I found the source codes online and decided to publish it here to preserve it, in case the original website goes down. And maybe even fix some small stuff here and there, who knows.
+But the project seems to be abandoned. The website at http://www.freesshd.com/ is neglected, and the tool hasn't been updated since 2009.
 
-I'm in now way asiciated with FreeSSHd. Just saving the source codes here for future generations. The license is MIT means I'm not violating anything by publishing it here.
+I found the source codes online and decided to publish it here to preserve it, in case the original website goes down. And maybe even fix some small stuff here and there, who knows. Let's do this together - contribution are very welcome.
+
+I'm in now way asiciated with FreeSSHd and the authors. Just saving the source codes here for future generations. The license is MIT means I'm not violating anything by publishing it here.
