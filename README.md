@@ -1,6 +1,6 @@
 # FreeSSHd source codes
 
-FreeSSHs was one a good SSH server for Windows operating system. It still works and used in production by many companies.
+FreeSSHs was once a good SSH server for Windows operating system. It still works and used in production by many companies.
 
 But the project seems to be abandoned. The website at http://www.freesshd.com/ is neglected, and the tool hasn't been updated since 2009.
 
