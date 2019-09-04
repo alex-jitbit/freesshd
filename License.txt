@@ -1,3 +1,5 @@
+MIT License
+
 Copyright (c) 2006-2009 Kresimir Petric
 
 NOTE: Portions of this software (wodSSHServer) are provided separately and use different type of licensing, so below text does not apply to them. Please consult their license agreement if you are interested in usage of those products.
